@@ -14,8 +14,11 @@ export const loginUser = async (req, res) => {
         if (!user) {
             return res.status(404).send({success: false, error: 'User/Password Combination not found'});
         }
+        res.status(200).send({success: true, msg: `User ${user.email} logged in`})
 
-    } catch (e) {
-        console.log(e);
+    } catch (error) {
+        res.status(500).send({success: false, error: error.message});
+        console.error(error.message);
     }
 }
+
