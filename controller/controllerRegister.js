@@ -6,9 +6,11 @@ export const register = async (req, res) => {
 
     const userFound = await User.findOne({ email });
 
+
     if (userFound) {
       return res.status(400).json({ message: ["The email is already in use"] });
     }
+
 
     const newUser = new User({
       name,
