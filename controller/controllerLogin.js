@@ -21,4 +21,3 @@ export const loginUser = async (req, res) => {
         console.error(error.message);
     }
 }
-
