@@ -1,7 +1,8 @@
+import React from 'react';
 import { useForm } from "react-hook-form";
-import { registerRequest } from "../api/auth";
+
 import { Card, Input, Label, Button } from '../components/ui'
-import axios from '../api/axios';
+import { registerUser } from '../api/auth';
 
 function RegisterPage() {
     const {
@@ -10,17 +11,19 @@ function RegisterPage() {
         formState: { errors }
     } = useForm();
 
-
+    const onSubmit = async (values) => {
+        try {
+            const response = await registerUser(values);
+            console.log('Registration successful:', response);
+        } catch (error) {
+            console.error('Registration error:', error);
+        }
+    };
     return (
         <Card >
             <div className="bg-gray-100 max-w-md w-full p-10 rounded-md ">
                 <h1 className="text-3xl font-bold">Register</h1>
-                <form onSubmit={handleSubmit(async(values) => {
-                    console.log(values);
-                    const res = await registerRequest(values)
-                    //await axios.post(`/register`, values);
-                    console.log(res)
-                })}>
+                <form onSubmit={handleSubmit(onSubmit)}>
 
                     <Label htmlFor="username">Name:</Label>
                     <Input
@@ -53,33 +56,26 @@ function RegisterPage() {
 
                     <Label htmlFor="role">Role:</Label>
                     <div className="flex items-center space-x-4">
-                        <Label>
-                            <Input
-                                type="checkbox"
+                        <label>
+                            <input
+                                type="radio"
                                 name="role"
-                                {...register("role")}
                                 value="student"
+                                {...register("role", { required: true })}
                             />
                             Student
-                        </Label>
-                        <Label>
-                            <Input
-                                type="checkbox"
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
                                 name="role"
-                                {...register("role")}
                                 value="tutor"
+                                {...register("role", { required: true })}
                             />
                             Tutor
-                        </Label>
-                        {
-                            errors.role && <p className="text-red-500"> Role is required</p>
-                        }
+                        </label>
+                        {errors.role && <p className="text-red-500">Role is required</p>}
                     </div>
-
-
-
-
-
 
                     <Label htmlFor="password">Password:</Label>
                     <Input
