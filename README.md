@@ -9,6 +9,7 @@
   "morgan": "^1.10.0",
   "bcrypt": "^5.1.0",
   "nodemon": "^3.0.1"
+  "jsonwebtoken": "^9.0.1",
 - file: .env, .gitignore, contoller, model, routes, server.js,middleware,uploads,util
 
 2**github setup**
@@ -16,6 +17,7 @@
 - neu organization in github
 - neu repository in github
 -
+
 **mongoDB setup**
 
 - create schema
