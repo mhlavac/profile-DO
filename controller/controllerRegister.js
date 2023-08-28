@@ -6,15 +6,11 @@ export const register = async (req, res) => {
 
     const userFound = await User.findOne({ email });
 
-<<<<<<< HEAD
+
     if (userFound) {
       return res.status(400).json({ message: ["The email is already in use"] });
     }
-=======
-        if (userFound) {
-            return res.status(400).json({ message: ["The email is already in use"] });
-        }
->>>>>>> test is ok login and register
+
 
     const newUser = new User({
       name,
