@@ -19,14 +19,21 @@ export const AuthProvider = ({ children }) => {
 
   // clear errors after 5 seconds
   useEffect(() => {
+    console.log("Effect started");
     if (errors.length > 0) {
+      console.log("Errors found, setting timer");
       const timer = setTimeout(() => {
+        console.log("Clearing errors");
         setErrors([]);
       }, 5000);
-      return () => clearTimeout(timer);
+      return () => {
+        console.log("Effect cleanup");
+        clearTimeout(timer);
+      };
     }
   }, [errors]);
-
+  
+// Funciones de autenticación
   const signup = async (user) => {
     try {
       const res = await registerUser(user);
@@ -57,6 +64,8 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
+
+    // Verificación de inicio de sesión al cargar el componente
   useEffect(() => {
     const checkLogin = async () => {
       const cookies = Cookies.get();
