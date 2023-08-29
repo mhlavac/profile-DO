@@ -17,12 +17,12 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.use('/api', router);
+
 
 
 
 app.use(cookieParser());
-
+app.use('/api', router);
 
 
 connectMongoose();
