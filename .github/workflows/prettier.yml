@@ -1,0 +1,19 @@
+# This file defines GitHub Continuous Integration pipelines for Prettier.
+# The pipeline runs on every pull request and checks if the code is formatted, if it isn't the pipeline fails.
+
+name: prettier
+run-name: Prettier Check
+on:
+  pull_request:
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "18.x"
+      - run: npm install
+      - run: npm run ci:prettier

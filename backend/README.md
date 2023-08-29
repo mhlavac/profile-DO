@@ -1,4 +1,25 @@
-1. **environment setup**
+# Local Development
+
+To develop locally, first install npm dependencies and then start the application:
+
+```shell
+npm install --include=dev
+npm run start
+```
+
+## Code Formatting
+
+We use [Prettier](https://prettier.io/) for code formatting. Run it with:
+
+```shell
+npm run prettier
+```
+
+Or, configure your IDE to apply Prettier when saving files.
+
+Prettier also runs in our GitHub pipelines, ensuring consistent code formatting. If it fails, do not merge the Pull Request.
+
+# Environment Setup
 
 - packetsjson.,
 - packetens:  "cors": "^2.8.5",
@@ -10,15 +31,16 @@
   "bcrypt": "^5.1.0",
   "nodemon": "^3.0.1"
   "jsonwebtoken": "^9.0.1",
-- file: .env, .gitignore, contoller, model, routes, server.js,middleware,uploads,util
+- "cookie-parser": "^1.4.6",
+- file: .env, .gitignore, controller, model, routes, server.js,middleware,uploads,util
 
-2**github setup**
+# GitHub setup
 
-- neu organization in github
-- neu repository in github
+- neu organization in GitHub
+- neu repository in GitHub
 -
 
-**mongoDB setup**
+# mongoDB setup
 
 - create schema
 - create modul

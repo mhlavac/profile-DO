@@ -4,7 +4,7 @@ import connectMongoose from './connectDB.js';
 import router from './router/routerProfile.js';
 import morgan from "morgan";
 import cors from 'cors';
-
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = process.env.PORT
@@ -21,6 +21,10 @@ app.use('/api', router);
 
 
 
+app.use(cookieParser());
+
+
+
 connectMongoose();
 app.listen(port);
-console.log('listening on port:', port )
+console.log("listening on port:", port);
