@@ -6,3 +6,5 @@ export const registerUser = async (userData) => axios.post(`${BASE_URL}/register
 
 
 export const loginUser = async (user) => axios.post(`${BASE_URL}/login`, user);
+
+export const verifyTokenRequest = async () => axios.get(`${BASE_URL}/verify`);

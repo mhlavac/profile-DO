@@ -1,17 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import ProfilePage from "./pages/ProfilePage";
+import { ProfilePage } from "./pages/ProfilePage";
 
-
+import { AuthProvider } from "./context/authContext";
 
 
 function App() {
 
 
   return (
-
-    <BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
       <Routes>
         <Route path='/' element={<h1>Home Page</h1>} />
         <Route path='/login' element={<LoginPage />} />
@@ -21,6 +21,8 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
+
   )
 }
 

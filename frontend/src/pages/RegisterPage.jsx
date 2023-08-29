@@ -1,33 +1,41 @@
-import React from 'react';
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Input, Label, Button } from '../components/ui'
+import { useAuth } from "../context/authContext";
 import { registerUser } from '../api/auth';
 import { registerSchema } from "../schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 function RegisterPage() {
+    const { isAuthenticated } = useAuth();
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm({
         resolver: zodResolver(registerSchema),
-
     });
-
+    const navigate = useNavigate();
 
     const onSubmit = async (values) => {
         try {
             const response = await registerUser(values);
             console.log('Registration successful:', response);
+            navigate("/login"); // Redirige a la página de perfil después del registro exitoso
         } catch (error) {
             console.error('Registration error:', error);
         }
     };
+
+    useEffect(() => {
+        if (isAuthenticated) navigate("/profile");
+    }, [isAuthenticated]);
+
     return (
         <div className="h-[calc(100vh-100px)] flex items-center justify-center">
             <Card >
+               
                 <div className="bg-gray-100 max-w-md w-full p-10 rounded-md ">
                     <h1 className="text-3xl font-bold">Register</h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -37,7 +45,7 @@ function RegisterPage() {
                             type="text"
                             name="username"
                             placeholder="Write your name"
-                            {...register("name")} 
+                            {...register("name")}
                             autoFocus
                         />
                         {errors.name?.message && (

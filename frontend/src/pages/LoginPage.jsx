@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button, Input, Label } from "../components/ui";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../schemas/auth";
+
 import { useForm } from "react-hook-form";
 import { loginUser } from '../api/auth';
 
@@ -11,7 +17,12 @@ function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     try {
@@ -29,6 +40,15 @@ function LoginPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    
+    if (isAuthenticated) {
+      navigate("/profile");
+    }
+  
+  }, [isAuthenticated]);
+
 
   return (
     <div className="h-[calc(100vh-100px)] flex items-center justify-center">
@@ -61,6 +81,9 @@ function LoginPage() {
             {loading ? 'Logging in...' : 'Login'}
           </Button>
         </form>
+        <p className="flex gap-x-2 justify-between">
+          Don't have an account? <Link to="/register" className="text-sky-500">Sign up</Link>
+        </p>
       </Card>
     </div>
   );
