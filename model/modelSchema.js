@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
 const UserSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  password: String,
-  role: String,
+  name: { type: String, required: true, minlength: 3, maxlength: 50 },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, minlength: 5, maxlength: 25, required: true },
+  role: { type: String, enum: ["tutor", "student"], default: "user" },
 });
 
 UserSchema.pre("save", async function (next) {
