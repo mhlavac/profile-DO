@@ -11,18 +11,18 @@ import jwt from "jsonwebtoken";
  */
 
 export default (req, res, next) => {
-    const token = req.cookies.jwt;
-    // debugger;
-    if (!token) {
-        return res.sendStatus(401);
-    }
+  const token = req.cookies.jwt;
+  // debugger;
+  if (!token) {
+    return res.sendStatus(401);
+  }
 
-    try {
-        const decodedToken = jwt.decode(token, process.env.JWT_SECRET);
+  try {
+    const decodedToken = jwt.decode(token, process.env.JWT_SECRET);
 
-        req.userId = decodedToken.userId;
-        return next();
-    } catch (error) {
-        return res.sendStatus(401);
-    }
+    req.userId = decodedToken.userId;
+    return next();
+  } catch (error) {
+    return res.sendStatus(401);
+  }
 };
