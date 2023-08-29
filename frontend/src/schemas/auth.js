@@ -17,17 +17,25 @@ export const registerSchema = z
       })
       .min(3, {
         message: "Username must be at least 3 characters",
+      })
+      .max(25, {
+        message: "Username must be at most 25 characters",
       }),
     email: z.string().email({
       message: "Please enter a valid email address",
     }),
     role: z.enum(["student", "tutor"]), // Definir las opciones válidas
-    password: z.string().min(6, {
+    password: z
+    .string().min(6, {
       message: "Role is required",
     }),
-    confirmPassword: z.string().min(6, {
+   
+    confirmPassword: z
+    .string().min(6, {
       message: "Password must be at least 6 characters",
-    }),
+    })
+    
+    
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
