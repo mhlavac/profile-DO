@@ -15,5 +15,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "18.x"
-      - run: npm install
-      - run: npm run ci:prettier
+      - run: npm install --prefix backend
+      - run: npm run --prefix backend ci:prettier
+      - run: npm install --prefix frontend
+      - run: npm run --prefix frontend ci:prettier

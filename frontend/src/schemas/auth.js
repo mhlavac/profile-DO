@@ -3,13 +3,15 @@ import { z } from "zod";
 export const loginSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address",
-  })
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters",
-  })
-  .max(25, {
-    message: "Password must be at most 25 characters",
   }),
+  password: z
+    .string()
+    .min(6, {
+      message: "Password must be at least 6 characters",
+    })
+    .max(25, {
+      message: "Password must be at most 25 characters",
+    }),
 });
 
 export const registerSchema = z
@@ -28,20 +30,15 @@ export const registerSchema = z
       message: "Please enter a valid email address",
     }),
     role: z.enum(["student", "tutor"]), // Definir las opciones válidas
-    password: z
-    .string().min(6, {
+    password: z.string().min(6, {
       message: "Role is required",
     }),
-   
-    confirmPassword: z
-    .string().min(6, {
+
+    confirmPassword: z.string().min(6, {
       message: "Password must be at least 6 characters",
-    })
-    
-    
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
-
